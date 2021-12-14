@@ -1,12 +1,12 @@
 {
     "horizon": 5,
     "ft_value": 1.5,
-    "itb_value": 0.2,
+    "itb_value": 0.08,
     "no_future_transfer": false,
     "randomized": false,
-    "banned": [],
+    "banned": [4, 230],
     "locked": [],
     "delete_tmp": true,
     "secs": 300,
-    "use_cmd": false
+    "use_cmd": true
 }

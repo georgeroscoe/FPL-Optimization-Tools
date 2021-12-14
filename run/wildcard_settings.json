@@ -1,11 +1,13 @@
 {
-    "horizon": 4,
-    "use_wc": 13,
+    "horizon": 3,
+    "ft_value": 1.5,
+    "itb_value": 0.08,
+    "use_wc": null,
     "no_future_transfer": true,
     "randomized": false,
     "wc_limit": 1,
     "banned": [],
-    "locked": [233],
+    "locked": [],
     "delete_tmp": true,
     "secs": 120,
     "use_cmd": true

@@ -21,6 +21,19 @@ def run_solver(n):
     result = solve_multi_period_fpl(data, options)
     responses.append(result)
     print(result['summary'].split('GW')[1])
+    current_gameweek = result['picks']['week'].iloc[0]
+    team_and_bench = result['picks'][['name', 'bench', 'captain','vicecaptain','week']]
+    current_week_team_and_bench = team_and_bench.loc[team_and_bench['week'] == current_gameweek]
+    captain = current_week_team_and_bench.loc[current_week_team_and_bench['captain'] == 1]['name'].values[0]
+    vicecaptain = current_week_team_and_bench.loc[current_week_team_and_bench['vicecaptain'] == 1]['name'].values[0]
+    bench = current_week_team_and_bench.loc[current_week_team_and_bench['bench'] != -1][['name', 'bench']]
+    print("Captain:")
+    print(captain)
+    print("Vice Captain:")
+    print(vicecaptain)
+    print("")
+    print("Bench")
+    print(bench)
 
 
   for (k, response) in enumerate(responses):
@@ -73,7 +86,7 @@ if __name__ == "__main__":
   # my_data = get_my_data(session, team_id)
   # data = prep_data(my_data, options)
 
-  run_solver(10)
+  run_solver(1)
 
   # all_responses.to_csv(
   #         f"results/multiobj_ws_solution_group_{stamp}.csv")

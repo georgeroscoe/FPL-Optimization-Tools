@@ -126,9 +126,9 @@ def prep_data(my_data, options):
     initial_squad = [int(i['element']) for i in my_data['picks']]
     # safe_players = initial_squad + 
     xmin_lb = options.get('xmin_lb', 1)
-    print(len(merged_data), "total players (before)")
+    #print(len(merged_data), "total players (before)")
     merged_data = merged_data[(merged_data['total_min'] >= xmin_lb) | (merged_data['review_id'].isin(initial_squad))].copy()
-    print(len(merged_data), "total players (after)")
+    #print(len(merged_data), "total players (after)")
 
     if options.get('randomized', False):
         rng = np.random.default_rng(seed = options.get('seed'))
@@ -145,7 +145,7 @@ def prep_data(my_data, options):
     for i in my_data['picks']:
         if buy_price[i['element']] != sell_price[i['element']]:
             price_modified_players.append(i['element'])
-            print(f"Added player {i['element']} to list, buy price {buy_price[i['element']]} sell price {sell_price[i['element']]}")
+            #print(f"Added player {i['element']} to list, buy price {buy_price[i['element']]} sell price {sell_price[i['element']]}")
 
 
 
@@ -335,21 +335,21 @@ def solve_multi_period_fpl(data, options):
     tmp_folder = Path() / "tmp"
     tmp_folder.mkdir(exist_ok=True, parents=True)
     model.export_mps(f'tmp/{problem_name}_{problem_id}.mps')
-    print(f"Exported problem with name: {problem_name}_{problem_id}")
+    #print(f"Exported problem with name: {problem_name}_{problem_id}")
 
     t0 = time.time()
     time.sleep(0.5)
 
     use_cmd = options.get('use_cmd', False)
 
-    command = f'cbc tmp/{problem_name}_{problem_id}.mps cost column ratio 1 solve solu tmp/{problem_name}_{problem_id}_sol_init.txt'
+    command = f'cbc tmp/{problem_name}_{problem_id}.mps cost column ratio 1 solve solu tmp/{problem_name}_{problem_id}_sol_init.txt  >/dev/null 2>&1'
     if use_cmd:
         os.system(command)
     else:
         process = Popen(command, shell=False)
         process.wait()
     secs = options.get('secs', 20*60)
-    command = f'cbc tmp/{problem_name}_{problem_id}.mps mips tmp/{problem_name}_{problem_id}_sol_init.txt cost column sec {secs} solve solu tmp/{problem_name}_{problem_id}_sol.txt'
+    command = f'cbc tmp/{problem_name}_{problem_id}.mps mips tmp/{problem_name}_{problem_id}_sol_init.txt cost column sec {secs} solve solu tmp/{problem_name}_{problem_id}_sol.txt  >/dev/null 2>&1'
     if use_cmd:
         os.system(command)
     else:

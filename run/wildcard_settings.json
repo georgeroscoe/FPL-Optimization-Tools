@@ -6,7 +6,7 @@
     "no_future_transfer": true,
     "randomized": true,
     "wc_limit": 1,
-    "banned": [],
+    "banned": [263, 254],
     "locked": [],
     "delete_tmp": true,
     "secs": 120,
